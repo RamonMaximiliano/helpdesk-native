@@ -1,18 +1,10 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { VStack, Heading } from "native-base";
 
 export default function Login() {
     return (
-        <View>
-            <Text style={styles.text}>Hello there!</Text>
-        </View>
+        <VStack flex={1} alignItems="center" bg="gray.800" px={8} pt={24}>
+            <Heading color="black">Hello there! Test</Heading>
+        </VStack>
     )
 };
-
-
-const styles = StyleSheet.create({
-      text:{
-        color:"blue",
-      }
-  });
-  
