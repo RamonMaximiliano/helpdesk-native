@@ -1,5 +1,6 @@
 import React from "react";
-import Login from "./src/login";
+import Login from "./src/screens/login";
+import Home from "./src/screens/home";
 import { NativeBaseProvider, StatusBar } from "native-base";
 import { useFonts, Roboto_400Regular, Roboto_700Bold } from "@expo-google-fonts/roboto";
 import { Loading } from "./src/components/Loading";
@@ -11,7 +12,7 @@ export default function App() {
     <NativeBaseProvider>
       {/*essa status bar mostra como o App vai admin a barra do topo do celular, que contém hora, bateria, wifi etc*/}
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      {fontsLoaded ? <Login /> : <Loading/> }    
+      {fontsLoaded ? <Home /> : <Loading/> }    
     </NativeBaseProvider>
   );
 }
