@@ -31,4 +31,11 @@ expo install react-native-svg@12.1.1
 
 expo install react-native-safe-area-context@3.3.2
 
+
+VStack = Vertical
+
+HStack = Horizontal
+
+
+
 */
