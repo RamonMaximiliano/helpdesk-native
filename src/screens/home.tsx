@@ -1,17 +1,36 @@
 import React, { useState } from "react";
-import { VStack, Heading, Text, Input, Button, HStack, View } from "native-base";
+import { VStack, Heading, Text, Input, Button, HStack, View, FlatList } from "native-base";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Pressable } from "react-native"; 
+import { Pressable } from "react-native";
+import Tickets from "../components/Tickets";
+import { ticketProps } from "../components/Tickets";
 
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
+    const [dataList, setDataList] = useState<ticketProps[]>([
+        {
+            id: "132456",
+            text: "hello there test",
+            status: true
+        },
+        {
+            id: "132456",
+            text: "hello here",
+            status: true
+        },
+        {
+            id: "132456",
+            text: "hello now",
+            status: true
+        }
+    ]);
 
     const Inprocess = "#fba655"
     const Completed = "#16f061"
     const neutral = "#b6b6b6"
 
-    function handleFilter(){
+    function handleFilter() {
         setStatusColor(!statusColor)
     }
 
@@ -31,12 +50,20 @@ export default function Home() {
             </HStack>
             <HStack display="flex" flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} width={"full"} px={5} pt={9}>
                 <Pressable onPress={handleFilter}>
-                    <Text color={statusColor ? Inprocess : neutral} fontSize="md" borderWidth="1" textAlign={"center"}   borderColor={statusColor ? Inprocess : neutral}borderRadius="sm" p={2} width={"40"}>In process</Text>
+                    <Text color={statusColor ? Inprocess : neutral} fontSize="md" borderWidth="1" textAlign={"center"} borderColor={statusColor ? Inprocess : neutral} borderRadius="sm" p={2} width={"40"}>In process</Text>
                 </Pressable>
                 <Pressable onPress={handleFilter}>
-                    <Text color={!statusColor ? Completed : neutral} fontSize="md" borderWidth="1" textAlign={"center"}   borderColor={!statusColor ? Completed : neutral}  borderRadius="sm" p={2} width={"40"}>Completed</Text>
+                    <Text color={!statusColor ? Completed : neutral} fontSize="md" borderWidth="1" textAlign={"center"} borderColor={!statusColor ? Completed : neutral} borderRadius="sm" p={2} width={"40"}>Completed</Text>
                 </Pressable>
             </HStack>
+
+            <FlatList
+                data={dataList}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <Tickets data={item}/>
+            }
+            />
+
         </VStack>
     )
 };
