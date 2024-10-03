@@ -11,13 +11,13 @@ export default function Home() {
     const [dataList, setDataList] = useState<ticketProps[]>([
         {
             id: "132456",
-            text: "hello there test",
+            text: "In your Box component, you're using rounded=, but the issue might be related to how NativeBase applies styles. Instead of , try using borderRadius directly with a specific value to ensure the rounded effect applies correctly. Here's an updated version:",
             status: true
         },
         {
             id: "132456",
             text: "hello here",
-            status: true
+            status: false
         },
         {
             id: "132456",
@@ -56,13 +56,14 @@ export default function Home() {
                     <Text color={!statusColor ? Completed : neutral} fontSize="md" borderWidth="1" textAlign={"center"} borderColor={!statusColor ? Completed : neutral} borderRadius="sm" p={2} width={"40"}>Completed</Text>
                 </Pressable>
             </HStack>
-
+            <VStack pt={5}>
             <FlatList
                 data={dataList}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => <Tickets data={item}/>
             }
             />
+            </VStack>
 
         </VStack>
     )
