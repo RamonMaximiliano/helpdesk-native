@@ -78,7 +78,7 @@ export default function Home() {
             </HStack>
             <HStack display="flex" flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} width={"full"} px={5} pt={9}>
                 <Text color="white" fontSize="xl">Tickets</Text>
-                <Text color="white" fontSize="xl">5</Text>
+                <Text color="white" fontSize="xl">{filteredListFilter.length}</Text>
             </HStack>
             <HStack display="flex" flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} width={"full"} px={5} pt={9}>
                 <Pressable onPress={handleFilterOpen}>
