@@ -5,6 +5,8 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Pressable } from "react-native";
 import Tickets from "../components/Tickets";
 import { ticketProps } from "../components/Tickets";
+import { useNavigation, ParamListBase } from "@react-navigation/native";
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
@@ -67,6 +69,11 @@ export default function Home() {
         handleFilterOpen()
     },[])
 
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    function handleNewOrder(){
+         navigation.navigate("new"); 
+    }
+
     return (
         <VStack flex={1} alignItems="center" bg="gray.900" pb={10}>
             <HStack bg="gray.800" height={140} width={"full"} alignItems={"center"} justifyContent={"space-between"} px={5} pt={9} textAlign={"center"}>
@@ -102,8 +109,30 @@ export default function Home() {
                 </Center>)}
             />
             <VStack pt={5}>
-                <Button background="#5960ff" width="xs" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }}><Text fontSize="md" color="white">New ticket</Text></Button>
+                <Button background="#5960ff" width="xs" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }} onPress={handleNewOrder}><Text fontSize="md" color="white" >New ticket</Text></Button>
             </VStack>
         </VStack>
     )
 };
+
+
+
+/* 
+
+Fixed the issue with the typing of the useNavigate hook
+https://stackoverflow.com/questions/73861337/no-overload-matches-this-call-error-react-native-navigation 
+
+--------------------------------------------------------------------
+When using native-stack, usage will look like this:
+
+import {ParamListBase, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+
+const Component = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  //...
+}
+--------------------------------------------------------------------
+
+
+*/

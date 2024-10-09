@@ -34,4 +34,15 @@ expo install react-native-svg@12.1.1
 
 expo install react-native-safe-area-context@3.3.2
 
+
+NAVIGATION:
+
+npm install @react-navigation/native --legacy-peer-deps
+
+npx expo install react-native-screens react-native-safe-area-context
+
+npm install @react-navigation/native-stack --legacy-peer-deps
+
+
+
 */
