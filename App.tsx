@@ -14,7 +14,7 @@ export default function App() {
     <NativeBaseProvider>
       {/*essa status bar mostra como o App vai admin a barra do topo do celular, que contém hora, bateria, wifi etc*/}
       <StatusBar barStyle="light-content" backgroundColor="transparent" translucent />
-      {fontsLoaded ? <New /> : <Loading/> }    
+      {fontsLoaded ? <Home /> : <Loading/> }    
     </NativeBaseProvider>
   );
 }
