@@ -127,7 +127,7 @@ Fixed the issue with the typing of the useNavigate hook
 https://stackoverflow.com/questions/73861337/no-overload-matches-this-call-error-react-native-navigation 
 
 --------------------------------------------------------------------
-When using native-stack, usage will look like this:
+When using native-stack, typing usage will look like this:
 
 import {ParamListBase, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
