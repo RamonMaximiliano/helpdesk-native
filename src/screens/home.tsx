@@ -73,7 +73,10 @@ export default function Home() {
     function handleNewOrder(){
          navigation.navigate("new"); 
     }
+function handleDetails(id: string){
+    navigation.navigate("details", {id}); 
 
+}
     return (
         <VStack flex={1} alignItems="center" bg="gray.900" pb={10}>
             <HStack bg="gray.800" height={140} width={"full"} alignItems={"center"} justifyContent={"space-between"} px={5} pt={9} textAlign={"center"}>
@@ -98,8 +101,9 @@ export default function Home() {
             <FlatList
                 data={filteredListFilter}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Tickets data={item} />
+                renderItem={({ item }) => <Tickets data={item} onPress={()=>handleDetails(item.id)}/>
                 }
+                
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 20 }}
                 pt={5}
