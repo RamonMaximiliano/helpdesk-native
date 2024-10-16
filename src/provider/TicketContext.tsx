@@ -3,9 +3,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const TicketContext = createContext(null);
 
-
-type user = {
-  id: number,
+export type user = {
+  id: string,
   password: string,
   email: string,
   status: boolean
