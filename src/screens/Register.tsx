@@ -1,9 +1,12 @@
 import React, { useContext, useState } from "react";
-import { VStack, Heading, Text, Input, Button } from "native-base";
+import { VStack, Heading, Text, Input, Button, HStack } from "native-base";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import Fontisto from '@expo/vector-icons/Fontisto';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { TicketContext } from "../provider/TicketContext";
+import { TouchableOpacity } from "react-native";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function Register() {
     const [email, setEmail] = useState("");
@@ -13,6 +16,11 @@ export default function Register() {
 
     function handleRegister(){
         console.log(email, password,confirmpassword)
+    }
+
+    const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+    function login() {
+        navigation.navigate("login");
     }
 
     return (
@@ -36,6 +44,12 @@ export default function Register() {
                 bg:"gray.900", 
             }}/>
             <Button background="#5960ff" width="xs" fontSize="lg" p={4} onPress={handleRegister}  _pressed={{ bg:"#7076FE" }}><Text fontSize="md" color="white">Register</Text></Button>
+            <HStack  width="95%" alignItems="center" display={"flex"} justifyContent={"space-between"}>
+                <Text marginTop={10} style={{ color: 'white'}}>Already have an account?</Text>
+                <TouchableOpacity onPress={login} >
+                    <Text marginTop={10} style={{ color: '#989dfb', fontWeight: 'bold',  fontSize: 15  }}>Login now</Text>
+                </TouchableOpacity>
+            </HStack>
         </VStack>
     )
 };
