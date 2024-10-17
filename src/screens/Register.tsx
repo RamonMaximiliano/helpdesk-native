@@ -8,7 +8,7 @@ import { TicketContext } from "../provider/TicketContext";
 import { TouchableOpacity } from "react-native";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 import { user } from "../provider/TicketContext";
 
@@ -16,7 +16,7 @@ export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmpassword] = useState("");
-    const { user, setUser, users, setUsers } = useContext(TicketContext);
+    const { user, setUser, users, setUsers,storeUsers } = useContext(TicketContext);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleRegister() {
@@ -46,18 +46,19 @@ export default function Register() {
             id: Date.now().toString(),
             email: email,
             password: password,
-            status: true
+            status: false
         };
 
         setUsers([...users, newUser]);
         setUser(newUser)
         console.log(users)
-        AsyncStorage.setItem("users", JSON.stringify(users));
+        
         Alert.alert("User created successfully!");
         setEmail("")
         setPassword("password1")
         setConfirmpassword("password2")
         log()
+        storeUsers(users);
     }
 
     function log() {

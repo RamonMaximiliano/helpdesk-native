@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { VStack, Heading, Text, Input, Button, HStack } from "native-base";
 import { TouchableOpacity } from 'react-native';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -6,18 +6,40 @@ import Fontisto from '@expo/vector-icons/Fontisto';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TicketContext } from "../provider/TicketContext";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { user } from "../provider/TicketContext";
+import { Alert } from 'react-native';
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { user, setUser, users, setUsers,storeUsers } = useContext(TicketContext);
 
     function handleLogin() {
-        console.log(email, password)
+        console.log("================")
+        console.log(email)
+        console.log(password)
+        const loginUser:user | undefined = users.find((user:user)=>{
+            return user.email === email
+        })
+        console.log(loginUser)
+        console.log(loginUser.id)
+        if(loginUser.password == password){
+            homeDirect()
+        } else {
+            Alert.alert("Invalid user or password!");
+        }
     }
+
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     function register() {
         navigation.navigate("register");
+    }
+
+    function homeDirect() {
+        navigation.navigate("home");
     }
 
     return (

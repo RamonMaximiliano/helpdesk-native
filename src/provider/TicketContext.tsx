@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from 'react-native';
 
 export const TicketContext = createContext(null);
 
@@ -24,6 +25,33 @@ export const TicketProvider = ({ children }) => {
   const [user, setUser] = useState([]);
   const [users, setUsers] = useState([]);
 
+  /*1 FUNCTION*/
+  const storeUsers = async (users) => {
+    try {
+      await AsyncStorage.setItem("usersList", JSON.stringify(users));
+    } catch (e) {
+      Alert.alert("Failed to save users! ❌")
+    }
+  };
+
+
+ /*2 FUNCTION*/
+  const getUsers = async () => {
+    try {
+      const usersList = await AsyncStorage.getItem("usersList");
+      if (usersList !== null) {
+        setUsers(JSON.parse(usersList));
+      }
+    } catch (e) {
+      Alert.alert("Failed to get users! ❌")
+    }
+  };
+
+  /*3 FUNCTION*/
+  useEffect(() => {
+    getUsers();
+  }, []);
+
 
 
   return (
@@ -38,7 +66,8 @@ export const TicketProvider = ({ children }) => {
         user,
         setUser,
         users, 
-        setUsers
+        setUsers,
+        storeUsers
       }}
     >
       {children}
