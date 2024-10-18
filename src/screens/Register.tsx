@@ -9,14 +9,13 @@ import { TouchableOpacity } from "react-native";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-
 import { user } from "../provider/TicketContext";
 
 export default function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmpassword, setConfirmpassword] = useState("");
-    const { user, setUser, users, setUsers,storeUsers } = useContext(TicketContext);
+    const {users, setUsers, storeUsers } = useContext(TicketContext);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleRegister() {
@@ -46,19 +45,16 @@ export default function Register() {
             id: Date.now().toString(),
             email: email,
             password: password,
-            status: false
         };
 
         setUsers([...users, newUser]);
-        setUser(newUser)
+        storeUsers(users);
         console.log(users)
-        
         Alert.alert("User created successfully!");
         setEmail("")
         setPassword("password1")
         setConfirmpassword("password2")
         log()
-        storeUsers(users);
     }
 
     function log() {
@@ -69,7 +65,7 @@ export default function Register() {
         <VStack flex={1} alignItems="center" bg="gray.800" px={8} pt={24}>
             <AntDesign name="customerservice" size={45} color="white" marginBottom={15} marginTop={15} />
             <Heading color="gray.400" fontSize="3xl" marginBottom={85}>Help<Text color="#5960ff">Desk </Text><Text color="white">Native</Text></Heading>
-            <Text color="white" marginBottom={8} fontSize="lg">Register an {user.password}</Text>
+            <Text color="white" marginBottom={8} fontSize="lg">Register your new account</Text>
             <Input placeholder="Email" value={email} width="xs" fontSize="md" p={3} marginBottom={15} bg="gray.900" InputLeftElement={<Fontisto name="email" size={20} color="white" marginLeft={18} />} onChangeText={(e) => setEmail(e)} color="white" _focus={{
                 borderWidth: 1,
                 borderColor: "purple.400",

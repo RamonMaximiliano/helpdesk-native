@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { VStack, Heading, Text, Input, Button, HStack, View, FlatList, Center } from "native-base";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
@@ -6,7 +6,8 @@ import { Pressable } from "react-native";
 import Tickets from "../components/Tickets";
 import { ticketProps } from "../components/Tickets";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TicketContext } from "../provider/TicketContext";
 
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
@@ -14,40 +15,43 @@ export default function Home() {
     const [statusColorComple, setStatusColorComple] = useState("#16f061");
     const [filteredListFilter, setFilteredListFilter] = useState<ticketProps[]>([])
     const [dataList, setDataList] = useState<ticketProps[]>([
-           {
-              id: "1",
-              text: "hello false",
-              status: false
-          },
-          {
-              id: "12",
-              text: "hello now",
-              status: true
-          },
-          {
-              id: "132",
-              text: "hello false",
-              status: false
-          },
-          {
-              id: "1212",
-              text: "hello now",
-              status: true
-          },
-          {
-              id: "121212",
-              text: "hello false",
-              status: false
-          }
+        {
+            id: "1",
+            text: "hello false",
+            status: false
+        },
+        {
+            id: "12",
+            text: "hello now",
+            status: true
+        },
+        {
+            id: "132",
+            text: "hello false",
+            status: false
+        },
+        {
+            id: "1212",
+            text: "hello now",
+            status: true
+        },
+        {
+            id: "121212",
+            text: "hello false",
+            status: false
+        }
     ]);
 
     const Inprocess = "#fba655"
     const Completed = "#16f061"
     const neutral = "#b6b6b6"
+    const { user, setUser, users, setUsers, storeUsers } = useContext(TicketContext);
+
+
 
     function handleFilterOpen() {
         setStatusColor(!statusColor)
-        const filteredList  = dataList.filter((item)=>{
+        const filteredList = dataList.filter((item) => {
             return item.status === true
         })
         setFilteredListFilter(filteredList)
@@ -57,7 +61,7 @@ export default function Home() {
 
     function handleFilterCompleted() {
         setStatusColor(!statusColor)
-        const filteredList  = dataList.filter((item)=>{
+        const filteredList = dataList.filter((item) => {
             return item.status === false
         })
         setFilteredListFilter(filteredList)
@@ -65,18 +69,26 @@ export default function Home() {
         setStatusColorComple("#16f061")
     }
 
-    useEffect(()=>{
+    function handleLogOut() {
+        navigateLogOut();
+        setUser();
+    }
+
+    useEffect(() => {
         handleFilterOpen()
-    },[])
+    }, [])
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-    function handleNewOrder(){
-         navigation.navigate("new"); 
+    function handleNewOrder() {
+        navigation.navigate("new");
     }
-function handleDetails(id: string){
-    navigation.navigate("details", {id}); 
+    function handleDetails(id: string) {
+        navigation.navigate("details", { id });
+    }
+    function navigateLogOut() {
+        navigation.navigate("login");
+    }
 
-}
     return (
         <VStack flex={1} alignItems="center" bg="gray.900" pb={10}>
             <HStack bg="gray.800" height={140} width={"full"} alignItems={"center"} justifyContent={"space-between"} px={5} pt={9} textAlign={"center"}>
@@ -84,7 +96,10 @@ function handleDetails(id: string){
                     <AntDesign name="customerservice" size={30} color="white" marginRight={15} />
                     <Heading color="gray.400" fontSize="2xl">Help<Text color="#5960ff">Desk </Text><Text color="white">Native</Text></Heading>
                 </VStack>
-                <MaterialIcons name="logout" size={30} color="white" />
+                <Pressable onPress={handleLogOut}>
+                    <MaterialIcons name="logout" size={30} color="white" />
+
+                </Pressable>
             </HStack>
             <HStack display="flex" flexDirection={"row"} alignItems={"center"} justifyContent={"space-between"} width={"full"} px={5} pt={9}>
                 <Text color="white" fontSize="xl">Tickets</Text>
@@ -101,15 +116,15 @@ function handleDetails(id: string){
             <FlatList
                 data={filteredListFilter}
                 keyExtractor={item => item.id}
-                renderItem={({ item }) => <Tickets data={item} onPress={()=>handleDetails(item.id)}/>
+                renderItem={({ item }) => <Tickets data={item} onPress={() => handleDetails(item.id)} />
                 }
-                
+
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 20 }}
                 pt={5}
                 ListEmptyComponent={() => (<Center alignItems="center" mt={5} >
                     <AntDesign name="customerservice" size={35} color="gray" />
-                    <Text mt={5} textAlign="center" fontSize="lg" color="gray.400">You don't have {'\n'} {statusColor ? "open" : "completed" } tickets</Text>
+                    <Text mt={5} textAlign="center" fontSize="lg" color="gray.400">You don't have {'\n'} {statusColor ? "open" : "completed"} tickets</Text>
                 </Center>)}
             />
             <VStack pt={5}>
