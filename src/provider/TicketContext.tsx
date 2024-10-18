@@ -10,15 +10,15 @@ export type user = {
   email: string,
 }
 
-type ticket = {
-  id: number,
+export type ticket = {
+  id: string,
   title: string,
   description: string,
-  userID: number
+  userID: string
 }
 
 export const TicketProvider = ({ children }) => {
-  const [newTicket, setNewTicket] = useState();
+  const [newTicket, setNewTicket] = useState<ticket>();
   const [userTickets, setUserTickets] = useState([]);
   const [ticketsList, setTicketsList] = useState([]);
   const [user, setUser] = useState();

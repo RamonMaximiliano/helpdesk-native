@@ -54,7 +54,7 @@ export default function Login() {
                 borderColor: "purple.400",
                 bg: "gray.900",
             }} />
-            <Input placeholder="Password" width="xs" fontSize="md" p={3} marginBottom={30} bg="gray.900" InputLeftElement={<FontAwesome5 name="key" size={20} color="white" marginLeft={18} />} onChangeText={(e) => setPassword(e)} color="white" secureTextEntry _focus={{
+            <Input placeholder="Password" value={password} width="xs" fontSize="md" p={3} marginBottom={30} bg="gray.900" InputLeftElement={<FontAwesome5 name="key" size={20} color="white" marginLeft={18} />} onChangeText={(e) => setPassword(e)} color="white" secureTextEntry _focus={{
                 borderWidth: 1,
                 borderColor: "purple.400",
                 bg: "gray.900",

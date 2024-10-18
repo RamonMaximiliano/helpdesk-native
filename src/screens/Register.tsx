@@ -48,7 +48,7 @@ export default function Register() {
         };
 
         setUsers([...users, newUser]);
-        storeUsers(users);
+        storeUsers([...users, newUser]);
         console.log(users)
         Alert.alert("User created successfully!");
         setEmail("")
