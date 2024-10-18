@@ -5,8 +5,10 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 
 export type ticketProps = {
     id: string,
-    text: string,
-    status: boolean
+    title: string,
+    description: string,
+    status:boolean,
+    userID: string
 }
 
 type ticketDataProps = IPressableProps & {
@@ -22,8 +24,8 @@ export default function Tickets({ data, ...rest }: ticketDataProps) {
             <HStack display="flex" flex={1} width={"355"} minHeight={16} bg={"gray.800"} alignItems={"center"} justifyContent={"space-between"} my={3} rounded="sm" mx={3} overflow="hidden">
                 <Box h={"full"} bg={data.status ? Inprocess : Completed} w={3} borderTopLeftRadius="sm" borderBottomLeftRadius={"sm"} />
                 <View textAlign={"left"} width={"280"} pl={2} py={2} >
-                    <Text color="white" flexWrap={"wrap"}>
-                        {data.text}
+                    <Text color="white" flexWrap={"wrap"} fontSize="md">
+                        {data.title}
                     </Text>
                 </View>
                 <Circle bg={"gray.700"} w={12} h={12} borderRadius="100" p={1} mr={1}>

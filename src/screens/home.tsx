@@ -8,51 +8,28 @@ import { ticketProps } from "../components/Tickets";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TicketContext } from "../provider/TicketContext";
+import { ticket } from "../provider/TicketContext";
 
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
     const [statusColorOpen, setStatusColorOpen] = useState("#fba655");
     const [statusColorComple, setStatusColorComple] = useState("#16f061");
     const [filteredListFilter, setFilteredListFilter] = useState<ticketProps[]>([])
-    const [dataList, setDataList] = useState<ticketProps[]>([
-        {
-            id: "1",
-            text: "hello false",
-            status: false
-        },
-        {
-            id: "12",
-            text: "hello now",
-            status: true
-        },
-        {
-            id: "132",
-            text: "hello false",
-            status: false
-        },
-        {
-            id: "1212",
-            text: "hello now",
-            status: true
-        },
-        {
-            id: "121212",
-            text: "hello false",
-            status: false
-        }
-    ]);
+    const [dataList, setDataList] = useState<ticketProps[]>([]);
 
     const Inprocess = "#fba655"
     const Completed = "#16f061"
     const neutral = "#b6b6b6"
-    const { user, setUser, users, setUsers, storeUsers } = useContext(TicketContext);
+    const { user, setUser, users, setUsers, storeUsers, userTickets } = useContext(TicketContext);
 
-
+    useEffect(() => {
+        handleFilterOpen();
+      }, [userTickets]);
 
     function handleFilterOpen() {
         setStatusColor(!statusColor)
-        const filteredList = dataList.filter((item) => {
-            return item.status === true
+        const filteredList = userTickets?.filter((item) => {
+            return item?.status === true
         })
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#fba655")
@@ -61,8 +38,8 @@ export default function Home() {
 
     function handleFilterCompleted() {
         setStatusColor(!statusColor)
-        const filteredList = dataList.filter((item) => {
-            return item.status === false
+        const filteredList = userTickets?.filter((item) => {
+            return item?.status === false
         })
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#b6b6b6")
@@ -73,10 +50,6 @@ export default function Home() {
         navigateLogOut();
         setUser();
     }
-
-    useEffect(() => {
-        handleFilterOpen()
-    }, [])
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     function handleNewOrder() {

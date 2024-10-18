@@ -13,13 +13,15 @@ import { Alert } from 'react-native';
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { setUser, users, deleteUsers } = useContext(TicketContext);
+    const { setUser, users, deleteUsers,newTicket, userTickets } = useContext(TicketContext);
 
     function handleLogin() {
         console.log("================")
         console.log(email)
         console.log(password)
         console.log(users)
+        console.log(newTicket)
+        console.log(userTickets)
         const loginUser:user | undefined = users.find((user:user)=>{
             return user.email === email
         })

@@ -9,7 +9,7 @@ import { ticket } from "../provider/TicketContext";
 export default function New() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const { user, setNewTicket } = useContext(TicketContext);
+    const { user, setNewTicket,setUserTickets,userTickets } = useContext(TicketContext);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleBack() {
@@ -21,10 +21,11 @@ export default function New() {
             id: Date.now().toString(),
             title: title,
             description: description,
+            status:true,
             userID: user.id
         }
         setNewTicket(newTicket);
-        console.log(newTicket)
+        setUserTickets([...userTickets, newTicket])
         backHome();
     }
 

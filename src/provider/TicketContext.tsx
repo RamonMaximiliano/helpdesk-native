@@ -14,15 +14,16 @@ export type ticket = {
   id: string,
   title: string,
   description: string,
+  status:boolean,
   userID: string
 }
 
 export const TicketProvider = ({ children }) => {
-  const [newTicket, setNewTicket] = useState<ticket>();
-  const [userTickets, setUserTickets] = useState([]);
+  const [newTicket, setNewTicket] = useState<ticket | undefined>();
+  const [userTickets, setUserTickets] = useState<ticket[]>([]);
   const [ticketsList, setTicketsList] = useState([]);
-  const [user, setUser] = useState();
-  const [users, setUsers] = useState([]);
+  const [user, setUser] = useState<user>();
+  const [users, setUsers] = useState<user[]>([]);
 
   /*1 FUNCTION*/
   function storeUsers(users){
@@ -50,6 +51,22 @@ export const TicketProvider = ({ children }) => {
   useEffect(() => {
     getUsers();
   }, []);
+
+/*   
+
+Criar logica que filtra tickets por user logado
+
+useEffect(() => {
+      setTicketsList([...ticketsList, userTickets])
+  }, []);
+
+
+
+
+ */
+
+
+
 
   /*4 FUNCTION*/
   function deleteUsers(){
