@@ -14,18 +14,17 @@ export type ticket = {
   id: string,
   title: string,
   description: string,
+  resolution: string,
   status:boolean,
   userID: string
 }
 
 export const TicketProvider = ({ children }) => {
-  const [newTicket, setNewTicket] = useState<ticket | undefined>();
   const [userTickets, setUserTickets] = useState<ticket[]>([]);
-  const [ticketsList, setTicketsList] = useState([]);
   const [user, setUser] = useState<user>();
   const [users, setUsers] = useState<user[]>([]);
 
-  /*1 FUNCTION*/
+  /*1 FUNCTION - SAVE USERS IN LOCALSTORAGE*/
   function storeUsers(users){
     try {
       AsyncStorage.setItem("usersList", JSON.stringify(users));
@@ -34,8 +33,7 @@ export const TicketProvider = ({ children }) => {
     }
   };
 
-
- /*2 FUNCTION*/
+ /*2 FUNCTION - GET USERS FROM LOCALSTORAGE*/
   const getUsers = async () => {
     try {
       const usersList = await AsyncStorage.getItem("usersList");
@@ -47,26 +45,36 @@ export const TicketProvider = ({ children }) => {
     }
   };
 
-  /*3 FUNCTION*/
   useEffect(() => {
     getUsers();
   }, []);
 
-/*   
 
-Criar logica que filtra tickets por user logado
+    /*3 FUNCTION - SAVE TICKETS IN LOCALSTORAGE*/
+    function storeTickets(userTickets){
+      try {
+        AsyncStorage.setItem("userTickets", JSON.stringify(userTickets));
+      } catch (e) {
+        Alert.alert("Failed to save users! ❌")
+      }
+    };
 
-useEffect(() => {
-      setTicketsList([...ticketsList, userTickets])
+
+     /*4 FUNCTION - GET TICKETS FROM LOCALSTORAGE*/
+  const getTickets = async () => {
+    try {
+      const ticketsList = await AsyncStorage.getItem("userTickets");
+      if (ticketsList !== null) {
+        setUserTickets(JSON.parse(ticketsList));
+      }
+    } catch (e) {
+      Alert.alert("Failed to get tickets! ❌")
+    }
+  };
+
+  useEffect(() => {
+    getTickets();
   }, []);
-
-
-
-
- */
-
-
-
 
   /*4 FUNCTION*/
   function deleteUsers(){
@@ -82,17 +90,14 @@ useEffect(() => {
   return (
     <TicketContext.Provider
       value={{
-        newTicket,
-        setNewTicket,
         userTickets,
         setUserTickets,
-        ticketsList,
-        setTicketsList,
         user,
         setUser,
         users, 
         setUsers,
         storeUsers,
+        storeTickets,
         deleteUsers
       }}
     >

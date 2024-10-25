@@ -8,19 +8,18 @@ import { ticketProps } from "../components/Tickets";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TicketContext } from "../provider/TicketContext";
-import { ticket } from "../provider/TicketContext";
+import { ticket, user } from "../provider/TicketContext";
 
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
     const [statusColorOpen, setStatusColorOpen] = useState("#fba655");
     const [statusColorComple, setStatusColorComple] = useState("#16f061");
     const [filteredListFilter, setFilteredListFilter] = useState<ticketProps[]>([])
-    const [dataList, setDataList] = useState<ticketProps[]>([]);
 
     const Inprocess = "#fba655"
     const Completed = "#16f061"
     const neutral = "#b6b6b6"
-    const { user, setUser, users, setUsers, storeUsers, userTickets } = useContext(TicketContext);
+    const { user, setUser, userTickets } = useContext(TicketContext);
 
     useEffect(() => {
         handleFilterOpen();
@@ -28,8 +27,8 @@ export default function Home() {
 
     function handleFilterOpen() {
         setStatusColor(!statusColor)
-        const filteredList = userTickets?.filter((item) => {
-            return item?.status === true
+        const filteredList = userTickets?.filter((item:ticket) => {
+            return item?.status === true && item?.userID === user.id
         })
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#fba655")
@@ -39,7 +38,7 @@ export default function Home() {
     function handleFilterCompleted() {
         setStatusColor(!statusColor)
         const filteredList = userTickets?.filter((item) => {
-            return item?.status === false
+            return item?.status === false && item?.userID === user.id
         })
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#b6b6b6")

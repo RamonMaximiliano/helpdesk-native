@@ -5,11 +5,12 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { TicketContext } from "../provider/TicketContext";
 import { ticket } from "../provider/TicketContext";
+import { Alert } from 'react-native';
 
 export default function New() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const { user, setNewTicket,setUserTickets,userTickets } = useContext(TicketContext);
+    const { user, setUserTickets,userTickets, storeTickets } = useContext(TicketContext);
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
     function handleBack() {
@@ -21,11 +22,13 @@ export default function New() {
             id: Date.now().toString(),
             title: title,
             description: description,
+            resolution: "",
             status:true,
             userID: user.id
         }
-        setNewTicket(newTicket);
         setUserTickets([...userTickets, newTicket])
+        storeTickets([...userTickets, newTicket])
+        Alert.alert("Ticket created successfully!");
         backHome();
     }
 

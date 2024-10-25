@@ -15,7 +15,7 @@ export default function Details() {
     const route = useRoute();
     const { id } = route.params as RouteParams;
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-    const { userTickets, setUserTickets } = useContext(TicketContext);
+    const { userTickets, setUserTickets, storeTickets } = useContext(TicketContext);
     const [ticketDetails, setTicketDetails] = useState<ticket | undefined>();
     const [resolution, setResolution] = useState("");
 
@@ -24,25 +24,26 @@ export default function Details() {
     }
 
     function closeTicket() {
-        const updatedUserTickets = userTickets.map((item)=>{
-            if(item.id != id){
+        const updatedUserTickets = userTickets.map((item) => {
+            if (item.id != id) {
                 return item
             } else {
-                return { ...item, status: false };
+                return { ...item, status: false, resolution: resolution };
             }
         })
         setUserTickets(updatedUserTickets)
+        storeTickets(updatedUserTickets)
         Alert.alert("Ticket has been closed!")
     }
-    
+
     useEffect(() => {
-        const detailedTicket = userTickets.find((item)=>{
+        const detailedTicket = userTickets.find((item) => {
             return item.id === id
         })
-        if(detailedTicket){
+        if (detailedTicket) {
             setTicketDetails(detailedTicket)
         }
-      }, [id]);
+    }, [id]);
 
     return (
         <VStack flex={1} bg="gray.900" flexDirection={"column"} px={5} justifyContent="space-between" pb={10}>
@@ -52,16 +53,24 @@ export default function Details() {
                 <AntDesign name="right" size={24} color="transparent" w="50" />
             </HStack>
 
-            <HStack display="flex" flexDirection={"row"} bg="gray.800"  alignItems={"center"} color="white" fontSize="xl" h="60" justifyContent="space-between" textAlign="center">
-                 <Text color="white" textAlign="center" fontSize="xl">{ ticketDetails?.title }</Text>
+            <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="60" justifyContent="space-between" textAlign="center">
+                <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.title}</Text>
             </HStack>
-            <HStack display="flex" flexDirection={"row"} bg="gray.800"  alignItems={"center"} color="white" fontSize="xl" h="200" justifyContent="space-between" textAlign="center">
-                 <Text color="white" textAlign="center" fontSize="xl">{ ticketDetails?.description }</Text>
-            </HStack>           
-            <Input placeholder="Resolution" h="200" fontSize="xl" multiline textAlignVertical="top" onChangeText={(e) => setResolution(e)}></Input>
-            <VStack pt={5} alignItems={"center"} >
-                <Button onPress={closeTicket} background="#5960ff" width="full" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }}><Text fontSize="md" color="white">Close</Text></Button>
-            </VStack>
+            <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="200" justifyContent="space-between" textAlign="center">
+                <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.description}</Text>
+            </HStack>
+            {ticketDetails?.resolution == "" ?
+                <>
+                    <Input placeholder="Resolution" h="200" p={2} fontSize="xl" multiline textAlignVertical="top" onChangeText={(e) => setResolution(e)}></Input>
+                    <VStack pt={5} alignItems={"center"} >
+                        <Button onPress={closeTicket} background="#5960ff" width="full" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }}><Text fontSize="md" color="white">Close</Text></Button>
+                    </VStack>
+                </>
+                :
+                <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="200" justifyContent="space-between" textAlign="center">
+                    <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.resolution}</Text>
+                </HStack>
+            }
         </VStack>
     )
 };
