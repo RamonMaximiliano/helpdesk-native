@@ -44,8 +44,8 @@ export default function New() {
                 <Text color="white" textAlign="center" fontSize="xl">New ticket</Text>
                 <AntDesign name="right" size={24} color="transparent" w="50" />
             </HStack>
-            <Input placeholder="Title" h="60" my={2} fontSize="xl" onChangeText={(e) => setTitle(e)} ></Input>
-            <Input placeholder="Description" h="450" fontSize="xl" multiline textAlignVertical="top" onChangeText={(e) => setDescription(e)}></Input>
+            <Input placeholder="Title" h="60" my={2} fontSize="xl" onChangeText={(e) => setTitle(e)} color="white" ></Input>
+            <Input placeholder="Description" h="450" fontSize="xl" multiline textAlignVertical="top" onChangeText={(e) => setDescription(e)} color="white" ></Input>
             <VStack pt={5} alignItems={"center"} >
                 <Button onPress={createTicket} background="#5960ff" width="full" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }}><Text fontSize="md" color="white">Create</Text></Button>
             </VStack>

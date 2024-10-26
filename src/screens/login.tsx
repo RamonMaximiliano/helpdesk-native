@@ -38,6 +38,8 @@ export default function Login() {
 
     const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     function register() {
+        setEmail("");
+        setPassword("");
         navigation.navigate("register");
     }
 
