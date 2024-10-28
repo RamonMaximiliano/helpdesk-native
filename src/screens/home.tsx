@@ -13,12 +13,10 @@ import { ticket, user } from "../provider/TicketContext";
 export default function Home() {
     const [statusColor, setStatusColor] = useState(true);
     const [statusColorOpen, setStatusColorOpen] = useState("#fba655");
+    const [messageText, setMessageText] = useState("open");
     const [statusColorComple, setStatusColorComple] = useState("#16f061");
     const [filteredListFilter, setFilteredListFilter] = useState<ticketProps[]>([])
 
-    const Inprocess = "#fba655"
-    const Completed = "#16f061"
-    const neutral = "#b6b6b6"
     const { user, setUser, userTickets, deleteTickets} = useContext(TicketContext);
 
     useEffect(() => {
@@ -33,6 +31,7 @@ export default function Home() {
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#fba655")
         setStatusColorComple("#b6b6b6")
+        setMessageText("open")
     }
 
     function handleFilterCompleted() {
@@ -43,6 +42,7 @@ export default function Home() {
         setFilteredListFilter(filteredList)
         setStatusColorOpen("#b6b6b6")
         setStatusColorComple("#16f061")
+        setMessageText("completed")
     }
 
     function handleLogOut() {
@@ -97,7 +97,7 @@ export default function Home() {
                 pt={5}
                 ListEmptyComponent={() => (<Center alignItems="center" mt={5} >
                     <AntDesign name="customerservice" size={35} color="gray" />
-                    <Text mt={5} textAlign="center" fontSize="lg" color="gray.400">You don't have {'\n'} {statusColor ? "open" : "completed"} tickets</Text>
+                    <Text mt={5} textAlign="center" fontSize="lg" color="gray.400">You don't have {'\n'} {messageText} tickets</Text>
                 </Center>)}
             />
             <VStack pt={5}>
