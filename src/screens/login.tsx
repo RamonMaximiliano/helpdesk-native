@@ -74,6 +74,7 @@ export default function Login() {
                     </Text>
                 </TouchableOpacity>
             </HStack>
+            <Text color="white" marginTop={24} fontSize="xs">* To delete all lists from your devide, press the Headset icon</Text>
         </VStack>
     )
 };

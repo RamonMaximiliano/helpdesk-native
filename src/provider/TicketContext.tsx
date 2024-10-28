@@ -83,7 +83,18 @@ export const TicketProvider = ({ children }) => {
       AsyncStorage.removeItem("usersList");
       Alert.alert("Users removed successfully!")
     } catch (e) {
-      Alert.alert("Failed to save users! ❌")
+      Alert.alert("Failed to remove users! ❌")
+    }
+  };
+  
+  /*5 FUNCTION*/
+  function deleteTickets(){
+    setUserTickets([])
+    try {
+      AsyncStorage.removeItem("userTickets");
+      Alert.alert("Tickets removed successfully!")
+    } catch (e) {
+      Alert.alert("Failed to remove tickets! ❌")
     }
   };
 
@@ -98,7 +109,8 @@ export const TicketProvider = ({ children }) => {
         setUsers,
         storeUsers,
         storeTickets,
-        deleteUsers
+        deleteUsers,
+        deleteTickets
       }}
     >
       {children}

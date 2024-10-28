@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { VStack, Heading, Text, Input, Button, HStack, View, FlatList, Center } from "native-base";
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Pressable } from "react-native";
+import { Alert, Pressable } from "react-native";
 import Tickets from "../components/Tickets";
 import { ticketProps } from "../components/Tickets";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
@@ -19,7 +19,7 @@ export default function Home() {
     const Inprocess = "#fba655"
     const Completed = "#16f061"
     const neutral = "#b6b6b6"
-    const { user, setUser, userTickets } = useContext(TicketContext);
+    const { user, setUser, userTickets, deleteTickets} = useContext(TicketContext);
 
     useEffect(() => {
         handleFilterOpen();
@@ -46,6 +46,7 @@ export default function Home() {
     }
 
     function handleLogOut() {
+        Alert.alert("You have been logged out!")
         navigateLogOut();
         setUser();
     }
@@ -65,7 +66,7 @@ export default function Home() {
         <VStack flex={1} alignItems="center" bg="gray.900" pb={10}>
             <HStack bg="gray.800" height={140} width={"full"} alignItems={"center"} justifyContent={"space-between"} px={5} pt={9} textAlign={"center"}>
                 <VStack display="flex" flexDirection={"row"} alignItems={"center"}>
-                    <AntDesign name="customerservice" size={30} color="white" marginRight={15} />
+                    <AntDesign name="customerservice" size={30} color="white" marginRight={15} onPress={deleteTickets}/>
                     <Heading color="gray.400" fontSize="2xl">Help<Text color="#5960ff">Desk </Text><Text color="white">Native</Text></Heading>
                 </VStack>
                 <Pressable onPress={handleLogOut}>

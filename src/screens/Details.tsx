@@ -21,7 +21,6 @@ export default function Details() {
     const [resolution, setResolution] = useState("");
 
     function handleBack() {
-        Alert.alert("You have been logged out!")
         navigation.navigate("home");
     }
 
@@ -67,24 +66,28 @@ export default function Details() {
                 <Text color="#16f061" textAlign="center" fontSize="xl" ml={4}>Completed</Text>
              </HStack>
              }
-
-            <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="60" justifyContent="space-between" textAlign="center">
+            <Text textAlign="left" mb={-2} color="gray.400" fontSize="md">Title</Text>
+            <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800"  color="white" fontSize="xl" h="60" textAlign="center">
                 <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.title}</Text>
             </HStack>
+            <Text color="gray.400"textAlign="left" mb={-2} fontSize="md">Description</Text>
             <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="200" justifyContent="space-between" textAlign="center">
                 <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.description}</Text>
             </HStack>
             {ticketDetails?.resolution == "" ?
                 <>
-                    <Input placeholder="Resolution" h="200" p={2} fontSize="xl" multiline textAlignVertical="top" color="white" onChangeText={(e) => setResolution(e)}></Input>
+                    <Input placeholder="Resolution" h="180" p={2} fontSize="xl" multiline textAlignVertical="top" color="white" onChangeText={(e) => setResolution(e)}></Input>
                     <VStack pt={5} alignItems={"center"} >
                         <Button onPress={closeTicket} background="#5960ff" width="full" fontSize="lg" p={4} _pressed={{ bg: "#7076FE" }}><Text fontSize="md" color="white">Close</Text></Button>
                     </VStack>
                 </>
                 :
-                <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="200" justifyContent="space-between" textAlign="center">
+                <>
+                <Text color="gray.400" textAlign="left" mb={-2} fontSize="md">Resolution</Text>
+                <HStack display="flex" flexDirection={"row"} borderRadius="sm" p={2} bg="gray.800" color="white" fontSize="xl" h="180" justifyContent="space-between" textAlign="center">
                     <Text color="white" textAlign="center" fontSize="xl">{ticketDetails?.resolution}</Text>
                 </HStack>
+                </>
             }
         </VStack>
     )

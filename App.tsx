@@ -27,10 +27,6 @@ export default function App() {
 
 /* 
 
-https://docs.nativebase.io/default-theme
-
-https://www.figma.com/design/l8OmDgXTTaPIHDrGQTz0So/Rocket-Help---Ignite-Lab-(Community)?t=5amiPftOzOavmgVl-0
-
 npx expo install @expo-google-fonts/roboto 
 
 npm install native-base
@@ -48,15 +44,5 @@ npx expo install react-native-screens react-native-safe-area-context
 
 npm install @react-navigation/native-stack --legacy-peer-deps
 
-
-
-TO DO:
-- Create register page
-- Global context
-- Validate login 
-- Register new ticket in user profile 
-- Finish details page
-- Mark ticket as finished 
-- Delete ticket from details page
 
 */
